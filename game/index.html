@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>game</title>
+    <style>
+        @import "css/style.css";
+    </style>
+    <style>
+        #container{
+            width: 500px;
+            text-align: center;
+            margin:100px auto;
+        }
+
+        span{
+            display: inline-block;
+            width: 100px;
+            height:100px;
+            background: #ddd;
+        }
+    </style>
+    <script src="js/js.js"></script>
+    <script>
+        var isFirst = true;
+        var row=new Array();
+        row[0] = 0;
+        row[1] = 0;
+        row[2] = 0;
+        var col=new Array();
+        col[0] = 0;
+        col[1] = 0;
+        col[2] = 0;
+        var incline=new Array();
+        incline[0] = 0;
+        incline[1] = 0;
+        function play(id,x,y){
+            if(isFirst){
+                id.style.backgroundColor= 'red';
+                row[x] = row[x] + y + 1;
+                col[y] = col[y] + x + 1;
+                if(x == y){
+                    incline[0] = incline[0] + y + 1;
+                }
+                if(x + y == 2){
+                    incline[1] = incline[1] + y + 1;
+                }
+
+                isFirst = false;
+            }
+            else{
+                id.style.backgroundColor= 'blue';
+                row[x] = row[x] - y - 1;
+                col[y] = col[y] - x - 1;
+                if(x == y){
+                    incline[0] = incline[0] - y - 1;
+                }
+                if(x + y == 2){
+                    incline[1] = incline[1] - y - 1;
+                }
+                isFirst = true;
+            }
+
+            for(var i = 0; i<3 ;i++){
+                if(row[i] == 6 || col[i] == 6){
+                    alert('red win');
+                }
+                else if (row[i] == -6 || col[i] == -6){
+                    alert('blue win');
+                }
+            }
+            if(incline[0] == 6 || incline[1] == 6){
+                alert('red win');
+            }
+            else if (incline[0] == -6 || incline[1] == -6){
+                alert('blue win');
+            }
+
+
+
+        }
+
+    </script>
+</head>
+<body>
+<div id="container">
+    <div class="row">
+        <span id="box00" onclick="play(this,0,0)"></span>
+        <span id="box01" onclick="play(this,0,1)"></span>
+        <span id="box02" onclick="play(this,0,2)"></span>
+    </div>
+    <div class="row">
+        <span id="box10" onclick="play(this,1,0)"></span>
+        <span id="box11" onclick="play(this,1,1)"></span>
+        <span id="box12" onclick="play(this,1,2)"></span>
+    </div>
+    <div class="row">
+        <span id="box20" onclick="play(this,2,0)"></span>
+        <span id="box21" onclick="play(this,2,1)"></span>
+        <span id="box22" onclick="play(this,2,2)"></span>
+    </div>
+</div>
+</body>
+</html>
